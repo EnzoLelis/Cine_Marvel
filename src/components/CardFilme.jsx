@@ -3,8 +3,9 @@
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 
-export default function CardFilme(titulo){
-    const [favorito, setFavorito] = useState(false)
+export default function CardFilme({filme}){
+    const [favorito, setFavorito] = useState(true)
+    const url_imagem = `https://image.tmdb.org/t/p/w200/${filme.poster_path}`
 
 
     return(
@@ -12,14 +13,14 @@ export default function CardFilme(titulo){
          { favorito ?  
            <HeartIcon onCLick={() => setFavorito(false)} className="h-6 w-6 text-rose-600" /> 
            :
-           <HeartIcon onCLick={() => setFavorito(false)} className="h-6 w-6 text-slate-100" /> 
+           <HeartIcon onCLick={() => setFavorito(true)} className="h-6 w-6 text-slate-100" /> 
          }
-        <img className="rounded" src={filme.poster}alt="" />
+        <img className="rounded" src={url_imagem}alt="" />
         <span className="font-bold text-center line-clamp-1">
-           {filme.titulo}
+           {filme.title}
         </span>
         <div>
-          <span>6.0</span>
+          <span>{filme.vote_average.toFixed(1)}</span>
         </div>
         <a href="#" className= "bg-pink-600 py-2  w-full rounded text-center">
           detalhes 

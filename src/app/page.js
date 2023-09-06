@@ -1,32 +1,20 @@
 import Title from '@/components/Title'
-import Image from 'next/image'
-import Title from './componentes/title'
+
 import CardFilme from '@/components/CardFilme'
 
-export default function Home() {
-  const filmes = [ 
-  {titulo: "Megatubarão 2",
-  nota: 6.2,
-  poster:"https://www.themoviedb.org/t/p/w220_and_h330_face/8tBhAn6qVRQzf5yvEcxjgPMgTkw.jpg"
-},
-{titulo: "Barbie",
-nota: 7.5,
-poster:"https://www.themoviedb.org/t/p/w94_and_h141_bestv2/yRRuLt7sMBEQkHsd1S3KaaofZn7.jpg"
-
+async function carregarFilmes(){
+  const url = "https://api.themoviedb.org/3/trending/movie/week?api_key=1e922667481ab207d642450b0efb461e&language=pt-br"
+  const resposta = await fetch(url)
+  const json = await resposta.json()
+  return json.results
 }
 
+export default async function Home() {
+  
+  const filmes = await carregarFilmes()
 
-  ]
-  const megatubarao ={
-    titulo: "Megatubarão 2",
-    nota: 6.2,
-    poster:"https://www.themoviedb.org/t/p/w220_and_h330_face/8tBhAn6qVRQzf5yvEcxjgPMgTkw.jpg"
-  }
-  const barbie = {
-    titulo: "Barbie",
-    nota: 7.5,
-    poster:"https://www.themoviedb.org/t/p/w94_and_h141_bestv2/yRRuLt7sMBEQkHsd1S3KaaofZn7.jpg"
-  }
+
+  
   return (
     <>
     <nav className="flex p-4 bg-slate-900">
@@ -48,7 +36,7 @@ poster:"https://www.themoviedb.org/t/p/w94_and_h141_bestv2/yRRuLt7sMBEQkHsd1S3Ka
 
     <Title>em alta</Title> 
 
-    <section classname="flex flex-wrap">
+    <section className="flex flex-wrap">
       {filmes.map(filme => <CardFilme filme={filme} /> )}
 
     </section>
